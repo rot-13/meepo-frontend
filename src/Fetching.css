@@ -11,8 +11,11 @@
   background-size: contain;
   background-position: 50% 50%;
   width: 75vw;
+  max-width: 500px;
   height: 67.5vw;
+  max-height: 450px;
   margin: 0 auto;
+
 }
 
 .fetching-title {
