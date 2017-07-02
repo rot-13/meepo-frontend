@@ -1,0 +1,35 @@
+.fetching-container {
+  width: 100vw;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.fetching-logo {
+  background-image: url('./images/tlv.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: 50% 50%;
+  width: 75vw;
+  height: 67.5vw;
+  margin: 0 auto;
+}
+
+.fetching-title {
+  text-align: center;
+}
+
+.fetching-mag {
+  font-size: 120px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: 40% 40%;
+  animation: detective 2s infinite linear;
+  animation-direction: alternate-reverse;
+}
+
+@keyframes detective {
+  from { transform: rotate(0deg) translateX(-30%) translateY(-30%); }
+  to { transform: rotate(100deg) translateX(40%) translateY(80%); }
+}
