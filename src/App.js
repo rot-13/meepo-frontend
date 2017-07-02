@@ -17,7 +17,7 @@ class App extends Component {
     fetch(DATA_SOURCE)
     .then(res => res.json())
     .then(({ entries, devices }) => {
-      setTimeout((() => this.setState({ fetching: false, entries, devices })), 1000)
+      setTimeout((() => this.setState({ fetching: false, entries, devices })), 500)
     })
   }
 

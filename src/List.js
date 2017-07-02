@@ -28,10 +28,13 @@ class List extends Component {
     const unknownEntries = this.getUnknownEntries()
 
     return (
-      <div>
+      <div className="list">
         <section>
-          <h2>People</h2>
-          <ul>
+          <h4 className="no-margin">
+            <i className="fa fa-users" aria-hidden="true"></i>
+            <span>&nbsp;People</span>
+          </h4>
+          <ul className="no-top-margin">
             {people.map(person => {
               return (
                 <li key={person.identifier}>
@@ -42,12 +45,26 @@ class List extends Component {
           </ul>
         </section>
         <section>
-          <h2>Devices</h2>
-          <ul>
+          <h4 className="no-margin">
+            <i className="fa fa-mobile" aria-hidden="true"></i>
+            <span>&nbsp;Devices</span>
+          </h4>
+          <ul className="no-top-margin">
             {unknownEntries.map(entry => {
               return (
                 <li key={entry.mac}>
-                  {entry.mac}
+                  <table>
+                    <tbody>
+                      <tr>
+                        <td><strong>MAC:</strong></td>
+                        <td>{entry.mac}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>IP:</strong></td>
+                        <td>{entry.ip}</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </li>
               )
             })}
