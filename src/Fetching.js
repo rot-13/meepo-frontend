@@ -7,7 +7,7 @@ class Fetching extends Component {
       <div className="fetching-container">
         <h1 className="fetching-title no-margin">Meepo?</h1>
         <div className="fetching-logo"/>
-        <div className="fetching-mag">🔍</div>
+        <span role="img" className="fetching-mag">🔍</span>
       </div>
     );
   }
