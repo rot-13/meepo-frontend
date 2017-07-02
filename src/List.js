@@ -49,7 +49,7 @@ class List extends Component {
                       <tr>
                         <td><div className="avatar" style={{ backgroundImage: `url(${person.imageUrl})`}}></div></td>
                         <td className="person-name">{person.name}</td>
-                        <td className="devices-icons">
+                        <td className="devices-icons align-right">
                           <span>{deviceMap[person.identifier].mobile &&
                             <i className="fa fa-mobile" aria-hidden="true"></i>
                           }</span>
@@ -79,6 +79,12 @@ class List extends Component {
                       <tr>
                         <td><strong>MAC:</strong></td>
                         <td>{entry.mac}</td>
+                        <td rowSpan={2} className="align-right">
+                          <a className="link-me" href="javascript:;">
+                            <i className="fa fa-plus-circle" aria-hidden="true"></i>
+                            <span className="hide-in-mobile">&nbsp; Link me!</span>
+                          </a>
+                        </td>
                       </tr>
                       <tr>
                         <td><strong>IP:</strong></td>
@@ -90,6 +96,13 @@ class List extends Component {
               )
             })}
           </ul>
+        </section>
+        <section className="copyright">
+          Created by Shay Davidson and Elad Shaham
+          <br/>
+          from the PayPal Consumer Product Center
+          <br/>
+          © 2017
         </section>
       </div>
     );

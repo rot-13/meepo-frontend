@@ -5,6 +5,7 @@ body {
   font-size: 40px;
   color: #222;
   background-color: #83a583;
+  box-sizing: border-box;
 }
 
 .no-margin {
@@ -13,4 +14,11 @@ body {
 
 .no-top-margin {
   margin-top: 0;
+}
+
+
+@media screen and (max-width: 600px) {
+  .hide-in-mobile {
+    display: none;
+  }
 }
