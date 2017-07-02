@@ -10,8 +10,14 @@ class List extends Component {
     devices: PropTypes.array
   }
 
-  getPeople() {
-    return uniqBy(this.props.devices.map(device => device.person), 'identifier')
+  getPeopleAndTheirDevices() {
+    const deviceMap = {}
+    const people =  uniqBy(this.props.devices.map(device => {
+      const person = device.person
+      deviceMap[person.identifier] = Object.assign({}, deviceMap[person.identifier], { [device.type]: true })
+      return person
+    }), 'identifier')
+    return { people, deviceMap }
   }
 
   getUnknownEntries() {
@@ -24,7 +30,7 @@ class List extends Component {
   }
 
   render() {
-    const people = this.getPeople()
+    const { people, deviceMap } = this.getPeopleAndTheirDevices()
     const unknownEntries = this.getUnknownEntries()
 
     return (
@@ -38,7 +44,22 @@ class List extends Component {
             {people.map(person => {
               return (
                 <li key={person.identifier}>
-                  {person.name}
+                  <table>
+                    <tbody>
+                      <tr>
+                        <td><div className="avatar" style={{ backgroundImage: `url(${person.imageUrl})`}}></div></td>
+                        <td className="person-name">{person.name}</td>
+                        <td className="devices-icons">
+                          <span>{deviceMap[person.identifier].mobile &&
+                            <i className="fa fa-mobile" aria-hidden="true"></i>
+                          }</span>
+                        <span>{deviceMap[person.identifier].laptop &&
+                            <i className="fa fa-laptop" aria-hidden="true"></i>
+                          }</span>
+                            </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </li>
               )
             })}
