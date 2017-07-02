@@ -10,6 +10,13 @@ class List extends Component {
     devices: PropTypes.array
   }
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      currentDevice: undefined
+    }
+  }
+
   getPeopleAndTheirDevices() {
     const deviceMap = {}
     const people =  uniqBy(this.props.devices.map(device => {
@@ -74,15 +81,34 @@ class List extends Component {
             {unknownEntries.map(entry => {
               return (
                 <li key={entry.mac}>
+                  {this.state.currentDevice === entry.mac &&
+                    <form action="https://meepo-api.herokuapp.com/associate" method="post">
+                      <table>
+                        <tbody>
+                          <tr>
+                              <input type="hidden" name="device[mac]" value={entry.mac}/>
+                              <td><input type="text" name="perosn[identifier]" placeholder="Unique ID"/></td>
+                              <td><input type="text" name="perosn[name]" placeholder="Name"/></td>
+                              <td><input type="text" name="perosn[imageUrl]" placeholder="Image URL"/></td>
+                              <td><input type="radio" name="device[type]" value="mobile" checked/><i className="fa fa-mobile" aria-hidden="true"></i></td>
+                              <td><input type="radio" name="device[type]" value="laptop"/><i className="fa fa-laptop" aria-hidden="true"></i></td>
+                              <td><label id="checkbox">Blacklisted?</label><input id="checkbox" type="checkbox" name="device[blacklisted]"/></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </form>
+                  }
                   <table>
                     <tbody>
                       <tr>
                         <td><strong>MAC:</strong></td>
                         <td>{entry.mac}</td>
                         <td rowSpan={2} className="align-right">
-                          <a className="link-me" href="javascript:;">
+                          <a className={`link-me ${this.state.currentDevice === entry.mac && 'colored'}`} href="javascript:;" onClick={() => {
+                              this.setState({ currentDevice: entry.mac })
+                            }}>
                             <i className="fa fa-plus-circle" aria-hidden="true"></i>
-                            <span className="hide-in-mobile">&nbsp; Link me!</span>
+                            <span className={`hide-in-mobile`}>{this.state.currentDevice === entry.mac ? " Submit" : " Link me!"}</span>
                           </a>
                         </td>
                       </tr>

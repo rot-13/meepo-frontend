@@ -54,6 +54,14 @@ li {
   box-sizing: border-box;
 }
 
+.link-me.colored {
+  background-color: #555 !important;
+}
+
+.link-me:hover {
+  background-color: #333;
+}
+
 .copyright {
   text-align: center;
   font-size: 12px;
