@@ -42,7 +42,7 @@ li {
   margin-left: 4px;
 }
 
-.link-me {
+.link-me, input[type="submit"] {
   max-width: 150px;
   margin-left: 1em;
   background-color: #222;
@@ -52,13 +52,18 @@ li {
   text-decoration: none;
   padding: 0.5em;
   box-sizing: border-box;
+  cursor: pointer;
+  -webkit-appearance: none;
+  border: none;
 }
 
-.link-me.colored {
-  background-color: #555 !important;
+input[type="submit"] {
+  margin-left: 0;
+  font-size: 1em;
+  display: block;
 }
 
-.link-me:hover {
+.link-me:hover, input[type="submit"]:hover {
   background-color: #333;
 }
 

@@ -22,3 +22,36 @@ body {
     display: none;
   }
 }
+
+.hidden {
+  display: none;
+}
+
+i + input[type=radio] {
+  margin-left: 1em;
+}
+
+input[type=radio] + i {
+  margin-left: 2px;
+  vertical-align: middle;
+  font-size: 2em;
+}
+
+input + label {
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+input[type="text"] {
+  margin-right: 5px;
+}
+
+input[type="text"] {
+  -webkit-appearance: none;
+  border: none;
+  font-size: 0.8em;
+  line-height: 50px;
+  padding: 0.2em;
+  border-radius: 4px;
+  width: 95%;
+}

@@ -19,11 +19,15 @@ class List extends Component {
 
   getPeopleAndTheirDevices() {
     const deviceMap = {}
-    const people =  uniqBy(this.props.devices.map(device => {
-      const person = device.person
-      deviceMap[person.identifier] = Object.assign({}, deviceMap[person.identifier], { [device.type]: true })
-      return person
-    }), 'identifier')
+    const people =  uniqBy(this.props.devices.reduce((people, device) => {
+      const matchingDevice = this.props.entries.find(entry => entry.mac === device.mac && !device.blacklisted)
+      if (matchingDevice) {
+        const person = device.person
+        deviceMap[person.identifier] = Object.assign({}, deviceMap[person.identifier], { [device.type]: true })
+        people.push(person)
+      }
+      return people
+    }, []), 'identifier')
     return { people, deviceMap }
   }
 
@@ -34,6 +38,11 @@ class List extends Component {
       return unknownEntries
     }, [])
     return uniqBy(entries, 'mac')
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    console.log('erm')
   }
 
   render() {
@@ -82,17 +91,19 @@ class List extends Component {
               return (
                 <li key={entry.mac}>
                   {this.state.currentDevice === entry.mac &&
-                    <form action="https://meepo-api.herokuapp.com/associate" method="post">
+                    <form onSubmit={this.handleSubmit} action="https://meepo-api.herokuapp.com/associate" method="post">
                       <table>
                         <tbody>
                           <tr>
-                              <input type="hidden" name="device[mac]" value={entry.mac}/>
-                              <td><input type="text" name="perosn[identifier]" placeholder="Unique ID"/></td>
+                              <td><input type="hidden" name="device[mac]" value={entry.mac}/><input type="text" name="perosn[identifier]" placeholder="Unique ID"/></td>
                               <td><input type="text" name="perosn[name]" placeholder="Name"/></td>
                               <td><input type="text" name="perosn[imageUrl]" placeholder="Image URL"/></td>
-                              <td><input type="radio" name="device[type]" value="mobile" checked/><i className="fa fa-mobile" aria-hidden="true"></i></td>
-                              <td><input type="radio" name="device[type]" value="laptop"/><i className="fa fa-laptop" aria-hidden="true"></i></td>
-                              <td><label id="checkbox">Blacklisted?</label><input id="checkbox" type="checkbox" name="device[blacklisted]"/></td>
+                          </tr>
+                          <tr>
+                              <td><input type="radio" name="device[type]" value="mobile" defaultChecked/><i className="fa fa-mobile" aria-hidden="true"></i>
+                              <input type="radio" name="device[type]" value="laptop"/><i className="fa fa-laptop" aria-hidden="true"></i></td>
+                              <td><input id="checkbox" type="checkbox" name="device[blacklisted]"/><label htmlFor="checkbox">Blacklisted?</label></td>
+                              <td><input type="submit" value="Submit" /></td>
                           </tr>
                         </tbody>
                       </table>
@@ -104,7 +115,7 @@ class List extends Component {
                         <td><strong>MAC:</strong></td>
                         <td>{entry.mac}</td>
                         <td rowSpan={2} className="align-right">
-                          <a className={`link-me ${this.state.currentDevice === entry.mac && 'colored'}`} href="javascript:;" onClick={() => {
+                          <a className={`link-me ${this.state.currentDevice === entry.mac && 'hidden'}`} onClick={() => {
                               this.setState({ currentDevice: entry.mac })
                             }}>
                             <i className="fa fa-plus-circle" aria-hidden="true"></i>
@@ -124,7 +135,7 @@ class List extends Component {
           </ul>
         </section>
         <section className="copyright">
-          Created by Shay Davidson and Elad Shaham
+          Created by Shay Davidson, Elad Shaham and Erez Dickman
           <br/>
           from the PayPal Consumer Product Center
           <br/>
