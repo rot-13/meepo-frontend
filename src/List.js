@@ -33,7 +33,7 @@ class List extends Component {
 
   getUnknownEntries() {
     const entries = this.props.entries.reduce((unknownEntries, entry) => {
-      const knownDevice = this.props.devices.find(device => device.mac === entry.mac || device.blacklisted)
+      const knownDevice = this.props.devices.find(device => device.mac === entry.mac)
       if (!knownDevice) unknownEntries.push(entry)
       return unknownEntries
     }, [])
