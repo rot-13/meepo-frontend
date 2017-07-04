@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import uniqBy from 'lodash.uniqby';
-import sortBy from 'lodash.sortBy';
 import './List.css';
 
 
@@ -43,7 +42,10 @@ class List extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log('erm')
+  }
+
+  sortBy(array, by) {
+    return array.sort((a, b) => b[by] - a[by])
   }
 
   render() {
@@ -55,10 +57,10 @@ class List extends Component {
         <section>
           <h4 className="no-margin">
             <i className="fa fa-users" aria-hidden="true"></i>
-            <span>{ ` People ${unknownEntries.count}`}</span>
+            <span>{ ` People (${people.length})`}</span>
           </h4>
           <ul className="no-top-margin">
-            {sortBy(people, 'name').map(person => {
+            {this.sortBy(people, 'name').map(person => {
               return (
                 <li key={person.identifier}>
                   <table>
@@ -85,10 +87,10 @@ class List extends Component {
         <section>
           <h4 className="no-margin">
             <i className="fa fa-mobile" aria-hidden="true"></i>
-            <span>{ ` Unknown Devices ${unknownEntries.count}`}</span>
+            <span>{ `   Devices (${unknownEntries.length})`}</span>
           </h4>
           <ul className="no-top-margin">
-            {sortBy(unknownEntries, 'mac').map(entry => {
+            {this.sortBy(unknownEntries, 'ip').map(entry => {
               return (
                 <li key={entry.mac}>
                   {this.state.currentDevice === entry.mac &&
