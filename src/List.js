@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import uniqBy from 'lodash.uniqby';
 import './List.css';
 
+const ASSOCIATE_URL = 'https://meepo-api.herokuapp.com/associate'
 
 class List extends Component {
   static PropTypes = {
@@ -42,6 +43,24 @@ class List extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    const inputs = event.target.elements
+    fetch(ASSOCIATE_URL, {
+      method: 'POST',
+      body: {
+        person: {
+          identifier: inputs['person.identifier'].value,
+          name: inputs['person.name'].value,
+          imageUrl: inputs['person.imageUrl'].value
+        },
+        device: {
+          type: inputs['device.type'].value,
+          blacklisted: inputs['device.blacklisted'].value,
+          mac: this.state.currentDevice
+        }
+      }
+    })
+      .then(() => window.location.reload())
+      .catch(() => alert('Erm, something does not work...'))
   }
 
   sortBy(array, by) {
@@ -94,18 +113,18 @@ class List extends Component {
               return (
                 <li key={entry.mac}>
                   {this.state.currentDevice === entry.mac &&
-                    <form onSubmit={this.handleSubmit} action="https://meepo-api.herokuapp.com/associate" method="post">
+                    <form onSubmit={this.handleSubmit.bind(this)} method="post">
                       <table>
                         <tbody>
                           <tr>
-                              <td><input type="hidden" name="device[mac]" value={entry.mac}/><input type="text" name="perosn[identifier]" placeholder="Unique ID"/></td>
-                              <td><input type="text" name="perosn[name]" placeholder="Name"/></td>
-                              <td><input type="text" name="perosn[imageUrl]" placeholder="Image URL"/></td>
+                              <td><input type="text" name="person.identifier" placeholder="Unique ID"/></td>
+                              <td><input type="text" name="person.name" placeholder="Name"/></td>
+                              <td><input type="text" name="person.imageUrl" placeholder="Image URL"/></td>
                           </tr>
                           <tr>
-                              <td><input type="radio" name="device[type]" value="mobile" defaultChecked/><i className="fa fa-mobile" aria-hidden="true"></i>
-                              <input type="radio" name="device[type]" value="laptop"/><i className="fa fa-laptop" aria-hidden="true"></i></td>
-                              <td><input id="checkbox" type="checkbox" name="device[blacklisted]"/><label htmlFor="checkbox">Blacklisted?</label></td>
+                              <td><input type="radio" name="device.type" value="mobile" defaultChecked/><i className="fa fa-mobile" aria-hidden="true"></i>
+                              <input type="radio" name="device.type" value="laptop"/><i className="fa fa-laptop" aria-hidden="true"></i></td>
+                              <td><input id="checkbox" type="checkbox" name="device.blacklisted"/><label htmlFor="checkbox">Blacklisted?</label></td>
                               <td><input type="submit" value="Submit" /></td>
                           </tr>
                         </tbody>

@@ -16,9 +16,7 @@ class App extends Component {
   componentWillMount() {
     fetch(DATA_SOURCE)
     .then(res => res.json())
-    .then(({ entries, devices }) => {
-      setTimeout((() => this.setState({ fetching: false, entries, devices })), 500)
-    })
+    .then(({ entries, devices }) => this.setState({ fetching: false, entries, devices }))
   }
 
   render() {
