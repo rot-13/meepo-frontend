@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import uniqBy from 'lodash.uniqby';
+import sortBy from 'lodash.sortBy';
 import './List.css';
 
 
@@ -54,10 +55,10 @@ class List extends Component {
         <section>
           <h4 className="no-margin">
             <i className="fa fa-users" aria-hidden="true"></i>
-            <span>&nbsp;People</span>
+            <span>{ ` People ${unknownEntries.count}`}</span>
           </h4>
           <ul className="no-top-margin">
-            {people.map(person => {
+            {sortBy(people, 'name').map(person => {
               return (
                 <li key={person.identifier}>
                   <table>
@@ -84,10 +85,10 @@ class List extends Component {
         <section>
           <h4 className="no-margin">
             <i className="fa fa-mobile" aria-hidden="true"></i>
-            <span>&nbsp;Devices</span>
+            <span>{ ` Unknown Devices ${unknownEntries.count}`}</span>
           </h4>
           <ul className="no-top-margin">
-            {unknownEntries.map(entry => {
+            {sortBy(unknownEntries, 'mac').map(entry => {
               return (
                 <li key={entry.mac}>
                   {this.state.currentDevice === entry.mac &&
