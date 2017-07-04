@@ -45,7 +45,7 @@ class List extends Component {
   }
 
   sortBy(array, by) {
-    return array.sort((a, b) => b[by] - a[by])
+    return array.sort((a, b) => a[by].localeCompare(b[by]))
   }
 
   render() {
