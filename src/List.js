@@ -75,7 +75,7 @@ class List extends Component {
       <div className="list">
         <section>
           <h4 className="no-margin">
-            <i className="fa fa-users" aria-hidden="true"></i>
+            <i className="fa fa-user" aria-hidden="true"></i>
             <span>{ ` People (${people.length})`}</span>
           </h4>
           <ul className="no-top-margin">
@@ -106,7 +106,7 @@ class List extends Component {
         <section>
           <h4 className="no-margin">
             <i className="fa fa-mobile" aria-hidden="true"></i>
-            <span>{ `   Devices (${unknownEntries.length})`}</span>
+            <span>{ ` Guests (${unknownEntries.length})`}</span>
           </h4>
           <ul className="no-top-margin">
             {this.sortBy(unknownEntries, 'ip').map(entry => {
@@ -117,15 +117,15 @@ class List extends Component {
                       <table>
                         <tbody>
                           <tr>
-                              <td><input type="text" name="person.identifier" placeholder="Unique ID"/></td>
-                              <td><input type="text" name="person.name" placeholder="Name"/></td>
-                              <td><input type="text" name="person.imageUrl" placeholder="Image URL"/></td>
+                              <td className="third"><div className="input-container"><input type="text" name="person.identifier" placeholder="Unique ID"/></div></td>
+                              <td className="third"><div className="input-container"><input type="text" name="person.name" placeholder="Name"/></div></td>
+                              <td className="third"><div className="input-container"><input type="text" name="person.imageUrl" placeholder="Image URL"/></div></td>
                           </tr>
                           <tr>
-                              <td><input type="radio" name="device.type" value="mobile" defaultChecked/><i className="fa fa-mobile" aria-hidden="true"></i>
-                              <input type="radio" name="device.type" value="laptop"/><i className="fa fa-laptop" aria-hidden="true"></i></td>
-                              <td><input id="checkbox" type="checkbox" name="device.blacklisted"/><label htmlFor="checkbox">Blacklisted?</label></td>
-                              <td><input type="submit" value="Submit" /></td>
+                              <td className="third"><div className="input-container"><input type="radio" name="device.type" value="mobile" defaultChecked/><i className="fa fa-mobile" aria-hidden="true"></i>
+                              <input type="radio" name="device.type" value="laptop"/><i className="fa fa-laptop" aria-hidden="true"></i></div></td>
+                              <td className="third"><div className="input-container"><input id="checkbox" type="checkbox" name="device.blacklisted"/><label htmlFor="checkbox">Blacklisted?</label></div></td>
+                              <td className="third"><div className="input-container"><input type="submit" value="Submit" /></div></td>
                           </tr>
                         </tbody>
                       </table>

@@ -61,6 +61,9 @@ input[type="submit"] {
   margin-left: 0;
   font-size: 1em;
   display: block;
+  line-height: 50px;
+  padding: 0 1em;
+  background-color: #5e2abf;
 }
 
 .link-me:hover, input[type="submit"]:hover {
@@ -70,4 +73,8 @@ input[type="submit"] {
 .copyright {
   text-align: center;
   font-size: 12px;
+}
+
+.third {
+  width: 33%;
 }
